@@ -9,7 +9,7 @@ function om_wpb_attribute_attach_video($settings, $value) {
 		'</div>'
 	;
 }
-add_shortcode_param('attach_video', 'om_wpb_attribute_attach_video', TEMPLATE_DIR_URI . '/wpb/assets/js/attributes.js');
+vc_add_shortcode_param('attach_video', 'om_wpb_attribute_attach_video', TEMPLATE_DIR_URI . '/wpb/assets/js/attributes.js');
 
 
 function om_wpb_attribute_om_get_code($settings, $value) {
@@ -21,7 +21,7 @@ function om_wpb_attribute_om_get_code($settings, $value) {
 		'</div>'
 	;
 }
-add_shortcode_param('om_get_code', 'om_wpb_attribute_om_get_code', TEMPLATE_DIR_URI . '/wpb/assets/js/attributes.js');
+vc_add_shortcode_param('om_get_code', 'om_wpb_attribute_om_get_code', TEMPLATE_DIR_URI . '/wpb/assets/js/attributes.js');
 
 function om_wpb_attribute_om_info($settings, $value) {
 	return
@@ -29,7 +29,7 @@ function om_wpb_attribute_om_info($settings, $value) {
 		'</div>'
 	;
 }
-add_shortcode_param('om_info', 'om_wpb_attribute_om_info');
+vc_add_shortcode_param('om_info', 'om_wpb_attribute_om_info');
 
 function om_wpb_attribute_om_categories($settings, $value) {
 	$dependency = vc_generate_dependencies_attributes($settings);
@@ -64,7 +64,7 @@ function om_wpb_attribute_om_categories($settings, $value) {
 		'</div>'
 	;
 }
-add_shortcode_param('om_categories', 'om_wpb_attribute_om_categories', TEMPLATE_DIR_URI . '/wpb/assets/js/attributes.js');
+vc_add_shortcode_param('om_categories', 'om_wpb_attribute_om_categories', TEMPLATE_DIR_URI . '/wpb/assets/js/attributes.js');
 
 function om_wpb_attribute_om_categories_multiple($settings, $value) {
 	$dependency = vc_generate_dependencies_attributes($settings);
@@ -99,4 +99,4 @@ function om_wpb_attribute_om_categories_multiple($settings, $value) {
 		'</div>'
 	;
 }
-add_shortcode_param('om_categories_multiple', 'om_wpb_attribute_om_categories_multiple', TEMPLATE_DIR_URI . '/wpb/assets/js/attributes.js');
+vc_add_shortcode_param('om_categories_multiple', 'om_wpb_attribute_om_categories_multiple', TEMPLATE_DIR_URI . '/wpb/assets/js/attributes.js');
