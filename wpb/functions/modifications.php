@@ -69,6 +69,7 @@ function om_wpb_sort_elements() {
 		'om_click_icon_box',
 		'om_click_icon_box2',
 		'om_teaser',
+		'om_exchange_rate'
 	);
 	
 	$elements=array_reverse($elements);
