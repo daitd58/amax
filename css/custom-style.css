@@ -1,0 +1,1 @@
+.container .wrap{overflow:hidden;position:relative}#ticker{list-style-type:none;margin:0;padding:0;position:relative;color:#000}#ticker span{padding:0 10px;white-space:nowrap}#ticker span.currencies{color:#004}#ticker span.value{padding-left:2px;color:#fe9a00}#ticker span.quote{margin:0;padding-left:5px}

@@ -239,6 +239,7 @@ if(!function_exists('om_enqueue_scripts')) {
 		if(get_option(OM_THEME_PREFIX . 'responsive') == 'true') {
 			wp_enqueue_style('responsive-mobile', TEMPLATE_DIR_URI.'/css/responsive-mobile.css');
 		}
+		wp_enqueue_style('om_style_custom', TEMPLATE_DIR_URI . '/css/custom-style.css');
 
 		wp_enqueue_style('omFont', TEMPLATE_DIR_URI.'/libraries/omFont/omFont.css');
 		if( isset( $GLOBALS['wp_styles']->registered[ 'font-awesome' ] ) ) {

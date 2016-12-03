@@ -1596,4 +1596,22 @@ function om_wpb_add_shortcodes() {
 		}
 	}
 
+	/**
+	 * Exchange rate
+	 */
+
+	vc_map(array(
+		'name' => __( 'Exchange Rate', 'om_theme' ),
+		'base' => 'om_exchange_rate',
+		'icon' => 'om-wpb-icon-posts',
+		'category' => array(__( 'Content', 'js_composer' )),
+		'description' => __( 'Exchange Rate block', 'om_theme' ),
+		'params' => array()
+	));
+
+	if ( class_exists( 'WPBakeryShortCode' ) ) {
+		class WPBakeryShortCode_om_exchange_rate extends WPBakeryShortCode {
+
+		}
+	}
 }
