@@ -48,8 +48,10 @@ if($my_query->have_posts()) {
 		<div class="vc_om-testimonials-items">
 			<?php
 			while ( $my_query->have_posts() ) {
+
 				$my_query->the_post(); // Get post from query
 				echo '<div class="om-item">';
+
 				$author=get_post_meta($post->ID, OM_THEME_SHORT_PREFIX.'testimonial_author_desc', true);
 	
 				echo '<div class="om-item-inner'.( has_post_thumbnail() ?' with-pic':' no-pic'  ).'">';
@@ -60,6 +62,9 @@ if($my_query->have_posts()) {
 	
 				echo '<div class="om-item-text">';
 				the_content();
+				echo '</div>';
+				echo '<div class="om-item-title">';
+				the_title();
 				echo '</div>';
 
 				if($author)
