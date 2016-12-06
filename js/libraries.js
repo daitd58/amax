@@ -15,3 +15,111 @@ jQuery.easing['jswing'] = jQuery.easing['swing']; jQuery.extend(jQuery.easing, {
  * v2.0.0
  */
 (function(e){function i(){if(r)return;t=e(window);n=t.height();t.resize(function(){n=t.height()});r=true}function s(){if(!window.getComputedStyle){return false}var e=document.createElement("div"),t,n={webkitTransform:"-webkit-transform",transform:"transform"};document.body.insertBefore(e,null);for(var r in n){if(e.style[r]!==undefined){e.style[r]="translate3d(1px,1px,1px)";t=window.getComputedStyle(e).getPropertyValue(n[r])}}document.body.removeChild(e);return t!==undefined&&t.length>0&&t!=="none"}var t,n;var r=false;e.fn.omParallax=function(r){function o(){var i=t.scrollTop();u.each(function(t){var s=e(this);var o=(new Date).getTime();var u=s.data("omLastDimensions");if(!u||o-u>2e3){s.data("omTop",s.offset().top);s.data("omHeight",f(s));s.data("omLastDimensions",o)}var c=s.data("omTop");var h=s.data("omHeight");if(c+h<i||c>i+n){return}var p=s.data("parallax-direction");if(p!="up"&&p!="down")p="up";var d=(i-(c-n))/(h+n);var v;if(p=="up")v=-Math.round(d*r.offset);else if(p=="down")v=-Math.round((1-d)*r.offset);l(a[t],v+"px")})}r=e.extend({offset:400,getOuterHeight:false,disableOnMobile:true},r);if(r.disableOnMobile&&/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){e(this).find(".om-parallax-inner").css("padding-bottom","0");return false}i();var u=e(this);var a=[];u.each(function(t){a[t]=e(this).find(".om-parallax-inner").css("padding-bottom",r.offset+"px")});var f;if(r.getOuterHeight){f=function(e){return e.outerHeight(true)}}else{f=function(e){return e.height()}}var l;if(s()){l=function(e,t){e.css({webkitTransform:"translate3d(0,"+t+",0)",transform:"translate3d(0,"+t+",0)"})}}else{l=function(e,t){e.css({top:t})}}var c=false;var h=window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||window.msRequestAnimationFrame||window.oRequestAnimationFrame||function(e){if(!c){c=true;window.setTimeout(function(){c=false;e()},16)}};t.bind("scroll resize",function(){h(o)});o()}})(jQuery);
+
+/**
+ * Horizontal Stock Ticker for jQuery.
+ *
+ * @package jStockTicker
+ * @author Peter Halasz <skinner@gmail.com>
+ * @license http://www.gnu.org/licenses/gpl-3.0.txt GPL v3.0
+ * @copyright (c) 2009, Peter Halasz all rights reserved.
+ */
+( function($) {
+
+    $.fn.jStockTicker = function(options) {
+
+        if (typeof (options) == 'undefined') {
+            options = {};
+        }
+
+        var settings = $.extend( {}, $.fn.jStockTicker.defaults, options);
+
+        var $ticker = $(this);
+
+        settings.tickerID = $ticker[0].id;
+
+        $.fn.jStockTicker.settings[settings.tickerID] = {};
+
+        var $wrap = null;
+
+        if ($ticker.parent().get(0).className != 'wrap') {
+            $wrap = $ticker.wrap("<div class='wrap'></div>");
+        }
+
+        var $tickerContainer = null;
+
+        if ($ticker.parent().parent().get(0).className != 'container') {
+            $tickerContainer = $ticker.parent().wrap(
+                "<div class='container'></div>");
+        }
+
+        var node = $ticker[0].firstChild;
+        var next;
+
+        while(node) {
+            next = node.nextSibling;
+            if(node.nodeType == 3) {
+                $ticker[0].removeChild(node);
+            }
+            node = next;
+        }
+
+        var shiftLeftAt = $($ticker.children().get(0)).outerWidth(true);
+
+        $.fn.jStockTicker.settings[settings.tickerID].shiftLeftAt = shiftLeftAt;
+        $.fn.jStockTicker.settings[settings.tickerID].left = 0;
+        $.fn.jStockTicker.settings[settings.tickerID].runid = null;
+
+        $ticker.width(2 * screen.availWidth);
+
+        function startTicker() {
+            stopTicker();
+
+            var params = $.fn.jStockTicker.settings[settings.tickerID];
+            params.left -= settings.speed;
+            if(params.left <= params.shiftLeftAt * -1) {
+                params.left = 0;
+                $ticker.append($ticker.children().get(0));
+                params.shiftLeftAt = $($ticker.children().get(0)).outerWidth(true);
+            }
+
+            $ticker.css('left', params.left + 'px');
+            params.runId = setTimeout(arguments.callee, settings.interval);
+
+            $.fn.jStockTicker.settings[settings.tickerID] = params;
+        }
+
+        function stopTicker() {
+            var params = $.fn.jStockTicker.settings[settings.tickerID];
+            if (params.runId)
+                clearTimeout(params.runId);
+
+            params.runId = null;
+
+            $.fn.jStockTicker.settings[settings.tickerID] = params;
+        }
+
+        function updateTicker() {
+
+            stopTicker();
+            startTicker();
+        }
+
+        $ticker.hover(stopTicker,startTicker);
+
+        startTicker();
+    };
+
+    $.fn.jStockTicker.settings = {};
+
+    $.fn.jStockTicker.defaults = {
+        tickerID :null,
+        url :null,
+        speed :1,
+        interval :20
+    };
+})(jQuery);
+
+(function($) {
+    $("#ticker").jStockTicker({interval: 45,speed:1});
+})(jQuery);
