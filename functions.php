@@ -216,7 +216,7 @@ add_filter('the_content', 'add_after_post_content');
  *************************************************************************************/
 
 // Recent Posts
-//include_once("widgets/recent-posts/recent-posts.php");
+include_once("widgets/recent-posts/recent-posts.php");
 
 // Facebook
 include_once("widgets/facebook/facebook.php");
