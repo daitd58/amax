@@ -1,0 +1,21 @@
+.vc_om-testimonials{
+	border: none;
+	.om-item-text {
+		font-size: 120%;
+		color: #fff;
+	}
+	.om-item-title{
+		color: #b2b2b2;
+		font-style: italic;
+	}
+	&::after{
+		display: none;
+	}
+	.vc_om-testimonials-controls a::before:hover{
+		background-color: transparent;
+	}
+	//.vc_om-testimonials-controls a:hover {
+	//	background-color: transparent;
+	//
+	//}
+}
