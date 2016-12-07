@@ -7,7 +7,7 @@ if ($el_class)
 
 $styles = array();
 $tag_attributes = array();
-$classes = array(apply_filters(VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, 'vc_om-popup-form wpb_content_element' . $el_class, $this->settings['base'], $atts));
+$classes = array(apply_filters(VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, 'vc_om-assist wpb_content_element' . $el_class, $this->settings['base'], $atts));
 
 echo '<div class="'.implode(' ',$classes).'"'.(!empty($styles)?' style="'.implode(';',$styles).'"':'').'>';
 ?>

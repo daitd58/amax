@@ -1643,9 +1643,9 @@ function om_wpb_add_shortcodes()
      */
 
     vc_map(array(
-        'name' => __('Popup Form', 'om_theme'),
-        'description' => __('Popup form for Assistant or Apply', 'om_theme'),
-        'base' => 'om_popup_form',
+        'name' => __('Assist Form', 'om_theme'),
+        'description' => __('Popup form for Assistant', 'om_theme'),
+        'base' => 'om_assist',
         'category' => array(__('Content', 'js_composer')),
         'params' => array(
 
@@ -1653,7 +1653,7 @@ function om_wpb_add_shortcodes()
                 'type' => 'textfield',
                 'heading' => __('', 'js_composer'),
                 'param_name' => 'title',
-                'description' => __('Popup Title.', 'js_composer')
+                'description' => __('Form Title.', 'js_composer')
 
             ),
 
@@ -1661,13 +1661,13 @@ function om_wpb_add_shortcodes()
                 'type' => 'textfield',
                 'heading' => __('Shortcode', 'om_theme'),
                 'param_name' => 'contact_form',
-                'description' => __('Contact Form Shortcode.', 'js_composer')
+                'description' => __('Fill out contact form shortcode.', 'js_composer')
             ),
         ),
     ));
 
     if (class_exists('WPBakeryShortCodesContainer')) {
-        class WPBakeryShortCode_om_popup_form extends WPBakeryShortCode
+        class WPBakeryShortCode_om_assist extends WPBakeryShortCode
         {
         }
     }
