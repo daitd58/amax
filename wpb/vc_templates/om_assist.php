@@ -14,7 +14,7 @@ echo '<div class="'.implode(' ',$classes).'"'.(!empty($styles)?' style="'.implod
     <a href="#contact_form_pop" class="fancybox"><?php echo $title ?></a>
     <div style="display:none" class="fancybox-hidden">
         <div id="contact_form_pop">
-            <div class="title"><h2><?php echo $title ?></h2></div>
+            <div class="title"><?php echo $title ?></div>
             <?php echo do_shortcode($contact_form) ?>
         </div>
     </div>
