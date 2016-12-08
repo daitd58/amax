@@ -18,8 +18,9 @@ jQuery(function($){
 	
 	testimonials_init();
 	
-	/*******************************/
 	
+	/*******************************/
+
 	function animation_init() {
 		
 		var animation_enabled=jQuery('body').hasClass('om-animation-enabled');

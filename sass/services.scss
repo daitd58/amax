@@ -1,34 +1,34 @@
-.services{
-	.wpb_wrapper{
-		margin-bottom: 40px;
-		margin-top: 40px;
-		text-align: justify;
-		&:nth-child(even){
-			padding-right: 30px;
+.vc_om-detail-box {
+	margin-bottom: 40px !important;
+	margin-top: 40px !important;
+	padding: 0 10px;
+	text-align: center;
+	.title {
+		text-transform: uppercase;
+		text-align: center;
+		&::after {
+			content: '';
+			display: block;
+			padding: 5px 0;
+			margin: 0 100px;
+			border-bottom: 1px solid $primary-color;
 		}
-		h2 {
-			text-transform: uppercase;
-			&::after {
-				content: '';
-				display: block;
-				padding: 10px 0;
-				margin: 0 100px;
-				border-bottom: 1px solid $primary-color;
+	}
+	.detail-button {
+		text-align: center;
+		text-transform: uppercase;
+		a {
+			cursor: pointer;
+			color: #fff;
+			padding: 10px 20px;
+			background-color: $primary-color;
+			&:hover {
+				text-decoration: none;
+				background-color: #9bd42c;
 			}
 		}
 	}
+	border: 1px solid #8c8c8c;
 
-	@media screen and (min-width: 768px){
-		.vc_column_container:nth-child(odd){
-			padding-right: 30px !important;
-		}
-		.vc_column_container:nth-child(even){
-			padding-left: 30px !important;
-		}
-	}
-	@media screen and (max-width: 768px){
-		.wpb_wrapper h2::after{
-			margin: 0 50px;
-		}
-	}
 }
+
