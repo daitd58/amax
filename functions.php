@@ -308,6 +308,8 @@ if(!function_exists('om_custom_css_block')) {
 	add_action('wp_head', 'om_custom_css_block');
 }
 
+//Create new img size
+add_image_size( 'recent-post-sidebar', 290, 193, true );
 /*************************************************************************************
  *	Plugins Inclusion
  *************************************************************************************/

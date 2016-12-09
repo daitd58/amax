@@ -3,6 +3,7 @@
 function om_widget_recent_posts_init() {
 	register_widget( 'om_widget_recent_posts' );
 }
+
 add_action( 'widgets_init', 'om_widget_recent_posts_init' );
 
 /* Widget Class */
@@ -13,10 +14,10 @@ class om_widget_recent_posts extends WP_Widget {
 
 		parent::__construct(
 			'om_widget_recent_posts',
-			OM_THEME_TITLE_NAME.': '.__('Recent Posts','om_theme'),
+			OM_THEME_TITLE_NAME . ': ' . __( 'Recent Posts', 'om_theme' ),
 			array(
-				'classname' => 'om_widget_recent_posts',
-				'description' => __('The most recent posts on your site with or without thumbnails', 'om_theme')
+				'classname'   => 'om_widget_recent_posts',
+				'description' => __( 'The most recent posts on your site with or without thumbnails', 'om_theme' )
 			)
 		);
 	}
@@ -24,7 +25,7 @@ class om_widget_recent_posts extends WP_Widget {
 	/* Front-end display of widget. */
 
 	function widget( $args, $instance ) {
-		extract( $args );
+		/*extract( $args );
 
 		$title = apply_filters('widget_title', $instance['title'] );
 		$instance['postcount'] = intval($instance['postcount']);
@@ -46,8 +47,51 @@ class om_widget_recent_posts extends WP_Widget {
 			($instance['show_thumb']?' thumbnail="true"':'').
 			($instance['excerpt']?' excerpt="true"':'').']');
 
-		echo wp_kses_post($after_widget);
+		echo wp_kses_post($after_widget);*/
 
+		$title      = isset( $instance['title'] ) ? $instance['title'] : 'Recent Posts';
+		$amount     = isset( $instance['postcount'] ) ? $instance['postcount'] : 3;
+		$show_thumb = isset( $instance['show_thumb'] ) ? $instance['show_thumb'] : true;
+		$excerpt    = isset( $instance['excerpt'] ) ? $instance['excerpt'] : true;
+
+		query_posts( array(
+			'orderby'             => 'date',
+			'posts_per_page'      => $amount,
+			'post_status'         => 'publish',
+			'ignore_sticky_posts' => true
+		) );
+		?>
+        <div class="recent-post-widget">
+            <div class="sidebar-widget-title"><?php echo $title; ?></div>
+			<?php
+			if ( have_posts() ) : while ( have_posts() ) : the_post();
+				?>
+                <div class="post">
+                    <div class="post-thumbnail">
+                        <a href="<?php the_permalink(); ?>">
+                            <?php if ( has_post_thumbnail() ) : the_post_thumbnail('recent-post-sidebar');
+                    else : ?>
+                                <img src="<?php echo get_template_directory_uri() . '/img/default-post-thumbnail.png' ?>">
+                            <?php endif; ?>
+                        </a>
+                    </div>
+                    <div class="post-title">
+                        <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+                    </div>
+                    <div class="post-excerpt">
+                        <p class="">
+		                    <?php echo substr( get_the_excerpt(), 0, 150 ); ?> ...
+                        </p>
+                        <a href="<?php the_permalink() ?>">Read more <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+				<?php
+			endwhile;
+				wp_reset_query();
+			endif;
+			?>
+        </div>
+		<?php
 	}
 
 
@@ -58,11 +102,11 @@ class om_widget_recent_posts extends WP_Widget {
 
 		$instance['title'] = strip_tags( $new_instance['title'] );
 
-		$instance['postcount'] = $new_instance['postcount'];
-		$instance['category'] = $new_instance['category'];
+		$instance['postcount']  = $new_instance['postcount'];
+		$instance['category']   = $new_instance['category'];
 		$instance['show_thumb'] = $new_instance['show_thumb'];
-		$instance['excerpt'] = $new_instance['excerpt'];
-		$instance['ids'] = $new_instance['ids'];
+		$instance['excerpt']    = $new_instance['excerpt'];
+		$instance['ids']        = $new_instance['ids'];
 
 		return $instance;
 	}
@@ -74,72 +118,85 @@ class om_widget_recent_posts extends WP_Widget {
 
 		// Set up some default widget settings
 		$defaults = array(
-			'title' => __('Recent Posts','om_theme'),
-			'postcount' => '2',
-			'category' => 0,
+			'title'      => __( 'Recent Posts', 'om_theme' ),
+			'postcount'  => '2',
+			'category'   => 0,
 			'show_thumb' => true,
-			'excerpt' => false,
-			'ids' => '',
+			'excerpt'    => false,
+			'ids'        => '',
 		);
 
 		$instance = wp_parse_args( (array) $instance, $defaults ); ?>
 
-		<!-- Widget Title: Text Input -->
-		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php _e('Title:', 'om_theme') ?></label>
-			<input class="widefat" type="text" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" value="<?php echo esc_attr( $instance['title'] ); ?>" />
-		</p>
+        <!-- Widget Title: Text Input -->
+        <p>
+            <label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php _e( 'Title:', 'om_theme' ) ?></label>
+            <input class="widefat" type="text" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"
+                   name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>"
+                   value="<?php echo esc_attr( $instance['title'] ); ?>"/>
+        </p>
 
-		<!-- Postcount: Text Input -->
-		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'postcount' ) ); ?>"><?php _e('Number of posts', 'om_theme') ?></label>
-			<input type="text" class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'postcount' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'postcount' ) ); ?>" value="<?php echo esc_attr( $instance['postcount'] ); ?>" />
-		</p>
+        <!-- Postcount: Text Input -->
+        <p>
+            <label for="<?php echo esc_attr( $this->get_field_id( 'postcount' ) ); ?>"><?php _e( 'Number of posts', 'om_theme' ) ?></label>
+            <input type="text" class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'postcount' ) ); ?>"
+                   name="<?php echo esc_attr( $this->get_field_name( 'postcount' ) ); ?>"
+                   value="<?php echo esc_attr( $instance['postcount'] ); ?>"/>
+        </p>
 
-		<!-- Show Thumb: Check Box -->
-		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'show_thumb' ) ); ?>"><?php _e('Show thumbnails', 'om_theme') ?></label>
-			<input type="checkbox" id="<?php echo esc_attr( $this->get_field_id( 'show_thumb' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'show_thumb' ) ); ?>" value="true" <?php if( $instance['show_thumb'] == 'true') echo 'checked="checked"'; ?> />
-		</p>
+        <!-- Show Thumb: Check Box -->
+        <p>
+            <label for="<?php echo esc_attr( $this->get_field_id( 'show_thumb' ) ); ?>"><?php _e( 'Show thumbnails', 'om_theme' ) ?></label>
+            <input type="checkbox" id="<?php echo esc_attr( $this->get_field_id( 'show_thumb' ) ); ?>"
+                   name="<?php echo esc_attr( $this->get_field_name( 'show_thumb' ) ); ?>"
+                   value="true" <?php if ( $instance['show_thumb'] == 'true' ) {
+				echo 'checked="checked"';
+			} ?> />
+        </p>
 
-		<!-- Show Excerpt: Check Box -->
-		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'excerpt' ) ); ?>"><?php _e('Show excerpt', 'om_theme') ?></label>
-			<input type="checkbox" id="<?php echo esc_attr( $this->get_field_id( 'excerpt' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'excerpt' ) ); ?>" value="true" <?php if( $instance['excerpt'] == 'true') echo 'checked="checked"'; ?> />
-		</p>
+        <!-- Show Excerpt: Check Box -->
+        <p>
+            <label for="<?php echo esc_attr( $this->get_field_id( 'excerpt' ) ); ?>"><?php _e( 'Show excerpt', 'om_theme' ) ?></label>
+            <input type="checkbox" id="<?php echo esc_attr( $this->get_field_id( 'excerpt' ) ); ?>"
+                   name="<?php echo esc_attr( $this->get_field_name( 'excerpt' ) ); ?>"
+                   value="true" <?php if ( $instance['excerpt'] == 'true' ) {
+				echo 'checked="checked"';
+			} ?> />
+        </p>
 
-		<!-- Category: Select Box -->
-		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'type' ) ); ?>"><?php _e('Posts category:', 'om_theme') ?></label>
+        <!-- Category: Select Box -->
+        <!--<p>
+			<label for="<?php /*echo esc_attr( $this->get_field_id( 'type' ) ); */ ?>"><?php /*_e('Posts category:', 'om_theme') */ ?></label>
 			<?php
-				$args = array(
-					'show_option_all'    => __('All Categories', 'om_theme'),
-					'show_option_none'   => __('No Categories', 'om_theme'),
-					'hide_empty'         => 0,
-					'echo'               => 1,
-					'selected'           => $instance['category'],
-					'hierarchical'       => 0,
-					'name'               => $this->get_field_name( 'category' ),
-					'id'         		     => $this->get_field_id( 'category' ),
-					'class'              => 'widefat',
-					'depth'              => 0,
-					'tab_index'          => 0,
-					'taxonomy'           => 'category',
-					'hide_if_empty'      => false
-				);
+		/*				$args = array(
+							'show_option_all'    => __('All Categories', 'om_theme'),
+							'show_option_none'   => __('No Categories', 'om_theme'),
+							'hide_empty'         => 0,
+							'echo'               => 1,
+							'selected'           => $instance['category'],
+							'hierarchical'       => 0,
+							'name'               => $this->get_field_name( 'category' ),
+							'id'         		     => $this->get_field_id( 'category' ),
+							'class'              => 'widefat',
+							'depth'              => 0,
+							'tab_index'          => 0,
+							'taxonomy'           => 'category',
+							'hide_if_empty'      => false
+						);
 
-				wp_dropdown_categories( $args );
+						wp_dropdown_categories( $args );
 
-			?>
-		</p>
+					*/ ?>
+		</p>-->
 
-		<!-- Custom posts: Text Input -->
-		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'ids' ) ); ?>"><?php _e('Custom post IDs', 'om_theme') ?></label>
-			<input type="text" class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'ids' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'ids' ) ); ?>" value="<?php echo esc_attr( $instance['ids'] ); ?>" />
-		</p>
+        <!-- Custom posts: Text Input -->
+        <!--<p>
+			<label for="<?php /*echo esc_attr( $this->get_field_id( 'ids' ) ); */ ?>"><?php /*_e('Custom post IDs', 'om_theme') */ ?></label>
+			<input type="text" class="widefat" id="<?php /*echo esc_attr( $this->get_field_id( 'ids' ) ); */ ?>" name="<?php /*echo esc_attr( $this->get_field_name( 'ids' ) ); */ ?>" value="<?php /*echo esc_attr( $instance['ids'] ); */ ?>" />
+		</p>-->
 
-	<?php
+		<?php
 	}
 }
+
 ?>
