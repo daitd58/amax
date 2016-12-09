@@ -1,0 +1,37 @@
+#career-position{
+    width: 100%;
+padding: 8px 5px;
+    font-size: 16px;
+    option{
+    }
+}
+
+#career-cv{
+    position: relative;
+    //margin-bottom: 50px;
+    &:before{
+        content: 'Choose file';
+        max-width: 100px;
+        max-height: 35px;
+        background-color: $primary-color;
+        color: #fff;
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 5;
+        padding: 9px 15px;
+    }
+}
+
+#career-send{
+    margin-top: 30px;
+    width: 40%;
+    padding: 10px;
+    position: relative;
+    left: 50%;
+    -webkit-transform: translate(-50%, 0%);
+    -moz-transform: translate(-50%, 0%);
+    -ms-transform: translate(-50%, 0%);
+    -o-transform: translate(-50%, 0%);
+    transform: translate(-50%, 0%);
+}

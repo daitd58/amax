@@ -1,0 +1,28 @@
+.recent-post-widget{
+    .post{
+        border-bottom: 1px solid rgba(53,53,53,0.15);
+        padding-bottom: 50px;
+        margin-bottom: 30px;
+        .post-thumbnail{}
+        .post-title{
+            a{
+                font-size: 22px;
+                color: #353535;
+                &:hover{
+                    text-decoration: none;
+                    color: $primary-color;
+
+                }
+            }
+        }
+        .post-excerpt{
+            p{
+                margin: 0;
+            }
+            a{
+                padding: 10px 0;
+                float: right;
+            }
+        }
+    }
+}
