@@ -1671,4 +1671,38 @@ function om_wpb_add_shortcodes()
         {
         }
     }
+
+    /*
+     * Detail Box
+    */
+
+    vc_map(array(
+        'name' => __('Detail Box', 'om_theme'),
+        'description' => __('Show/ Hide service details', 'om_theme'),
+        'base' => 'om_detail_box',
+        'category' => array(__('Content', 'js_composer')),
+        'params' => array(
+
+            array(
+                'type' => 'textfield',
+                'heading' => __('Title', 'js_composer'),
+                'param_name' => 'title',
+                'description' => __('Service Title', 'js_composer')
+
+            ),
+            
+            array(
+                'type' => 'textfield',
+                'heading' => __('Service Info', 'om_theme'),
+                'param_name' => 'service_info',
+                'description' => __('Fill out service information', 'js_composer')
+            ),
+        ),
+    ));
+
+    if (class_exists('WPBakeryShortCodesContainer')) {
+        class WPBakeryShortCode_om_detail_box extends WPBakeryShortCode
+        {
+        }
+    }
 }

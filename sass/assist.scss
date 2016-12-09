@@ -1,0 +1,55 @@
+.content .vc_om-assist {
+	a {
+		color: #fff;
+		font-size: 135%;
+		padding: 0.5em 0.9em;
+		text-transform: uppercase;
+		background-color: #493728;
+		&:hover {
+			text-decoration: none;
+			color: #493728;
+			background-color: rgb(179, 169,161);
+
+		}
+	}
+	text-align: center;
+}
+
+#fancybox-outer{
+	width: 550px !important;
+	#fancybox-content{
+		width: 550px !important;
+	}
+	.title {
+		font-size: 32px;
+		line-height: 36px;
+	}
+	#fancybox-close{
+		background: none;
+		&:after {
+			content: "Close";
+			text-transform: uppercase;
+			position: absolute;
+			z-index: 10000;
+			display: block;
+			background-color: $primary-color;
+			color: #fff;
+			font-size: 14px;
+			padding: 8px;
+			top: 15px;
+			right: -41px;
+		}
+
+	}
+	#fancybox-content{
+		padding: 18px;
+	}
+	p {
+		color: #8c8c8c;
+		font-size: medium;
+		font-weight: 400;
+	}
+	input[type=submit]:hover{
+		background-color: #9bd42c;
+	}
+}

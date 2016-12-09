@@ -1,7 +1,18 @@
 "use strict";
 
 jQuery(function($){
-
+	/*
+	Jquery for detail box
+	 */
+	
+	$('.detail-button a').on('click', function () {
+		var attr = $(this).parentsUntil('.vc_om-detail-box');
+		attr.find('.hide-detail').toggle();
+		attr.find('.readmore').toggle();
+		attr.parent().find(".detail-content").toggle();
+		attr.parent().find('.excerpt').toggle();
+	})
+	/**********************/
 	if(!$.browser)
 		$.browser=browser_detect();
 	
