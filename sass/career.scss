@@ -8,7 +8,7 @@ padding: 8px 5px;
 
 #career-cv{
     position: relative;
-    margin-bottom: 50px;
+    //margin-bottom: 50px;
     &:before{
         content: 'Choose file';
         max-width: 100px;
@@ -24,6 +24,7 @@ padding: 8px 5px;
 }
 
 #career-send{
+    margin-top: 30px;
     width: 40%;
     padding: 10px;
     position: relative;
