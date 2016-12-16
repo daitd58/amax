@@ -53,7 +53,7 @@
 							// logo
 							if($logo_arr['logo_type'] == 'image') {
 								$logo =
-									'<div class="logo-box"'. (isset($logo_arr['imagesize'][0]) ? ' style="width:'.intval($logo_arr['imagesize'][0]).'px"' : '' ).'>'.
+									'<div class="logo-box">'.
 										'<div class="logo-image"><a href="' . esc_attr($logo_arr['href']) .'">'.$logo_arr['image_block'].'</a></div>'.
 									'</div>'
 								;
@@ -91,7 +91,7 @@
 							}
 							if($menu) {
 								if(($header_layout == 1 || $header_layout == 3) && isset($logo_arr['line_height']))
-									$menu = '<div class="menu-box" style="line-height:'.intval($logo_arr['line_height']).'px"><nav>' . $menu . $search .'</nav></div>';
+									$menu = '<div class="menu-box"><nav>' . $menu . $search .'</nav></div>';
 								else
 									$menu = '<div class="menu-box"><nav>' . $menu . $search . '</nav></div>';
 							}
